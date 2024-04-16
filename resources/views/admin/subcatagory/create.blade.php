@@ -82,7 +82,7 @@
     $("#catagoryform").submit(function (e) {
             e.preventDefault();
             let ele = $(this);
-
+            console.log("submit o hosce....");
 
         $.ajax({
             url:"{{ route('subcatagory.store') }}",

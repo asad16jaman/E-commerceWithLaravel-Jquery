@@ -12,7 +12,7 @@ class Catagory extends Model
     protected $table = "catagories";
     protected $fillable = ["name","slug","status","catagory_id"];
     public function subCats(){
-        return $this->hasMany(SubCatagorie::class);
+        return $this->hasMany(SubCatagory::class);
     }
 
 

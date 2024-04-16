@@ -80,7 +80,7 @@ class SubcatagoryContorller extends Controller
 
         $validaData = Validator::make($request->all(),[
             "name" => "required",
-            "slug" => "required|unique:sub_catagories,slug,".$cat->id."id",
+            "slug" => "required|unique:sub_catagories,slug,".$cat->id.",id",
             "status" => "required",
             "catagory_id" => "required"
         ]);
