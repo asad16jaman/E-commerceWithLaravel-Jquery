@@ -49,11 +49,18 @@
                                     <div class="col-md-6">
 										<div class="mb-3">
 											<label for="email">Status</label>
-											<!-- <input type="text" name="slug" id="slug" class="form-control" placeholder="Slug">
-                                        	 -->
                                              <select name="status" id="status" class="form-control">
                                                 <option value="1">active</option>
                                                 <option value="0">block</option>
+                                             </select>
+										</div>
+									</div>	
+									<div class="col-md-6">
+										<div class="mb-3">
+											<label for="show_home">Show Home</label>
+                                             <select name="show_home" id="show_home" class="form-control">
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                              </select>
 										</div>
 									</div>									

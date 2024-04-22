@@ -9,6 +9,9 @@ use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCatagoryController;
 use App\Http\Controllers\admin\SubcatagoryContorller;
 use App\Http\Controllers\admin\TempImagesController;
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\ForntController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,10 +26,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get("/",function(){
+// Route::get("/",function(){
 
-    return "";
-});
+//     return "";
+// });
+
+Route::get("/",[ForntController::class,"index"])->name("front.index");
+Route::get("/shop/{catagory?}/{subCatagory?}",[ShopController::class,"index"])->name("front.shop");
+Route::get("/product/{slug}",[ShopController::class,"product"])->name("front.product");
+Route::get("/cart",[CardController::class,"cart"])->name("front.cart");
+Route::post("/add-to-cart",[CardController::class,"addToCart"])->name("front.addToCart");
+Route::post("/update-cart",[CardController::class,"updateCart"])->name("front.updateCart");
+Route::delete("/delete-item",[CardController::class,"deleteItem"])->name("front.deleteItem.cart");
+
+
+
 
 
 Route::group(["prefix"=>"admin"],function(){
@@ -35,9 +49,6 @@ Route::group(["prefix"=>"admin"],function(){
 
         Route::get("login",[AdminLoginController::class,"index"])->name("admin.login");
         Route::post("/authenicate",[AdminLoginController::class,"authenicate"])->name("admin.authenicate");
-
-
-
 
 
     });
@@ -78,6 +89,9 @@ Route::group(["prefix"=>"admin"],function(){
         Route::post("/product/store",[ProductController::class,"store"])->name("product.store");
         Route::get("/product/{product}/edit",[ProductController::class,"edit"])->name("product.edit")->whereNumber("product");
         Route::put("/product/{product_id}/update",[ProductController::class,"update"])->name("product.update")->whereNumber("product_id");
+        Route::get("/related-product",[ProductController::class,"relatedProduct"])->name("product.relatedProduct");
+
+
         //updatd image route
         Route::post("product/image/{id?}/update",[ProductImageController::class,"update"])->name("product.image.update")->whereNumber("id");
         Route::delete("product/image/delete",[ProductImageController::class,"destroy"])->name("product.image.delete")->whereNumber("id");

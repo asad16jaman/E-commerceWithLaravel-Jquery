@@ -25,6 +25,13 @@
                                     <div class="card mb-3">
                                         <div class="card-body">								
                                             <div class="row">
+                                            <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="name">name</label>
+                                                        <input type="text" value="{{ $editProduct->name }}" name="name" id="name" class="form-control" placeholder="name">	
+                                                        <p class="error"></p>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="mb-3">
                                                         <label for="title">Title</label>
@@ -44,7 +51,19 @@
                                                         <label for="description">Description</label>
                                                         <textarea name="description"  value="{{ $editProduct->description }}" id="description" cols="30" rows="10" class="summernote" placeholder="Description"></textarea>
                                                     </div>
-                                                </div>                                            
+                                                </div> 
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="short_description">Short Description</label>
+                                                        <textarea name="short_description" value="{{ $editProduct->short_description }}" id="short_description" cols="30" rows="7" class="summernote" placeholder="short Description"></textarea>
+                                                    </div>
+                                            </div>   
+                                            <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="shipping_returns">Shipping returns</label>
+                                                        <textarea name="shipping_returns" value="{{ $editProduct->shipping_returns }}" id="shipping_returns" cols="30" rows="10" class="summernote" placeholder="Shipping returns"></textarea>
+                                                    </div>
+                                            </div>                                             
                                             </div>
                                         </div>	                                                                      
                                     </div>
@@ -208,7 +227,24 @@
                                             </div>
                                            
                                         </div>
-                                    </div>                                 
+                                    </div>     
+                                    <div class="card mb-3">
+                                        <div class="card-body">	
+                                            <h2 class="h4 mb-3">Related Product</h2>
+                                            <div class="mb-3">
+                                               <select multiple name="related_products[]"  id="related_products" class="related_product w-100">
+                                                @if(!empty($rProduct))
+                                                    @foreach($rProduct as $product)
+                                                        <option value="{{ $product->id }}" selected>{{ $product->name}}</option>
+
+                                                    @endforeach
+                                                @endif
+                                               </select>
+                                                <p class="error"></p>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>                               
                                 </div>
                             </div>
                             
@@ -227,6 +263,22 @@
 
 @section("customJs")
 <script>
+
+$('.related_product').select2({
+    ajax: {
+        url: '{{ route("product.relatedProduct") }}',
+        dataType: 'json',
+        tags: true,
+        multiple: true,
+        minimumInputLength: 3,
+        processResults: function (data) {
+            return {
+                results: data.tags
+            };
+        }
+    }
+}); 
+
 
   
 
@@ -287,10 +339,6 @@ Dropzone.autoDiscover = false;
             this.removeFile(file)
         }
 	});
-
-// function deleteThisImg(id){
-//     $(`#galary-${id}`).remove()
-// }
 
 function myfun(id){
 

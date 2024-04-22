@@ -51,7 +51,7 @@
                                 </div>
                                
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name">Status</label>
                                     <select name="status" id="category" class="form-control">
@@ -60,6 +60,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+										<div class="mb-3">
+											<label for="show_home">Show Home</label>
+                                             <select name="show_home" id="show_home" class="form-control">
+                                                <option value="Yes">Yes</option>
+                                                <option value="No" {{ ($subCatagory->show_home == "No") ?  "selected" :  "" }}>No</option>
+                                             </select>
+										</div>
+									</div>	
                         </div>
                     </div>
                 </div>

@@ -48,6 +48,7 @@ class SubcatagoryContorller extends Controller
             $cat->slug = $request->slug;
             $cat->status = $request->status;
             $cat->catagory_id = $request->catagory_id;
+            $cat->show_home = $request->show_home;
             $cat->save();
             
             $request->session()->flash("success","successfully created");
@@ -94,6 +95,7 @@ class SubcatagoryContorller extends Controller
                 $cat->slug = $request->slug;
                 $cat->status = $request->status;
                 $cat->catagory_id = $request->catagory_id;
+                $cat->show_home = $request->show_home;
                 $cat->save();
                 
                 $request->session()->flash("success","successfully updated");

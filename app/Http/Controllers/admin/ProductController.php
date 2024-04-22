@@ -63,6 +63,7 @@ class ProductController extends Controller
 
             $ob = $request->all();
             $product = new Product;
+            $product->name = $ob["name"];
             $product->title = $ob["title"];
             $product->slug = $ob["slug"];
             $product->description = $ob["description"];
@@ -77,6 +78,9 @@ class ProductController extends Controller
             $product->track_qty = $ob["track_qty"];
             $product->qty = $ob["qty"];
             $product->status = $ob["status"];
+            $product->short_description = $ob["short_description"];
+            $product->shipping_returns = $ob["shipping_returns"];
+            $product->related_products = (!empty($ob["related_products"])) ? implode(",",$ob["related_products"]) : "";
             $product->save();
 
             if(!empty($request->image_array)){
@@ -89,6 +93,7 @@ class ProductController extends Controller
                     $img->product_id = $product->id;
                     $img->image = "null";
                     $img->save();
+                 
 
                     $nameImg = $product->id."-".$img->id."-".time().".".$ext;
                     $img->image = $nameImg;
@@ -121,10 +126,19 @@ class ProductController extends Controller
         $editProduct = Product::with(['productImages'=>function($qr){
             return $qr->select("id","product_id","image");
         }])->find($product); 
+
         $catagories = Catagory::select("id","name")->orderBy("name","asc")->get();
         $subCatagories = SubCatagory::where("catagory_id",$editProduct->catagory_id)->get();
         $brands = Brand::select()->orderBy("name","ASC")->get();
-        return view("admin.product.edit",["catagories"=>$catagories,"brands"=>$brands,"subCatagories"=>$subCatagories,"editProduct"=>$editProduct]);
+
+        $all_r_products = [];
+        if($editProduct->related_products != ""){
+            $r_products = explode(",",$editProduct->related_products);
+            $all_r_products = Product::whereIn("id",$r_products)->get();
+
+        }
+
+        return view("admin.product.edit",["catagories"=>$catagories,"brands"=>$brands,"subCatagories"=>$subCatagories,"editProduct"=>$editProduct,"rProduct"=>$all_r_products]);
 
     }
 
@@ -150,6 +164,7 @@ class ProductController extends Controller
 
 
             $ob = $request->all();
+            $product->name = $ob["name"];
             $product->title = $ob["title"];
             $product->slug = $ob["slug"];
             $product->description = $ob["description"];
@@ -164,6 +179,9 @@ class ProductController extends Controller
             $product->track_qty = $ob["track_qty"];
             $product->qty = $ob["qty"];
             $product->status = $ob["status"];
+            $product->short_description = $ob["short_description"];
+            $product->shipping_returns = $ob["shipping_returns"];
+            $product->related_products = (!empty($ob["related_products"])) ? implode(",",$ob["related_products"]) : "";
             $product->save();
 
             $request->session()->flash("success","successfully added product");
@@ -185,6 +203,27 @@ class ProductController extends Controller
 
 
 
+
+    }
+
+    function relatedProduct(Request $request){
+
+        $sendProduct = [];
+        if($request->term != ""){
+            
+            $r_products = Product::where("name","like","%".$request->term."%")->get();
+            foreach($r_products as $product){
+                $sendProduct[] = array("id"=>$product->id,"text" => $product->name);
+            }
+
+        }
+
+        
+
+        return response()->json([
+            "tags" => $sendProduct,
+            "status" => true
+        ]);
 
     }
 

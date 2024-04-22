@@ -58,7 +58,16 @@
                                                 <option {{ ($catagory->status==0) ?  "selected" :  "" }} value="0">block</option>
                                              </select>
 										</div>
-									</div>									
+									</div>	
+									<div class="col-md-6">
+										<div class="mb-3">
+											<label for="show_home">Show Home</label>
+                                             <select name="show_home" id="show_home" class="form-control">
+                                                <option value="Yes">Yes</option>
+                                                <option value="No" {{ ($catagory->show_home == "No") ?  "selected" :  "" }}>No</option>
+                                             </select>
+										</div>
+									</div>								
 								</div>
 							</div>							
 						</div>

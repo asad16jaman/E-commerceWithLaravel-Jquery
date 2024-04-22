@@ -42,7 +42,7 @@ class CatagoryController extends Controller
             $ob->name = $request->name;
             $ob->slug = $request->slug;
             $ob->status = $request->status;
-
+            $ob->show_home = $request->show_home;
             $ob->save();
 
             if(!empty($request->image_id)){
@@ -118,6 +118,7 @@ class CatagoryController extends Controller
             $catagory->name = $request->name;
             $catagory->slug = $request->slug;
             $catagory->status = $request->status;
+            $catagory->show_home = $request->show_home;
             $catagory->save();
 
             if(!empty($request->image_id)){
