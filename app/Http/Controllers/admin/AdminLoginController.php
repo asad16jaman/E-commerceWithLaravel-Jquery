@@ -37,15 +37,8 @@ class AdminLoginController extends Controller
                     return redirect()->route("admin.login")
                     ->with("error","only admin can login with this form you are not authorize");
                 }
-
-                
             }else{
-                
-               
             };
-
-
-
         }else{
             return redirect()->route("admin.login")->withErrors($validator)
             ->withInput($request->only("email"));
@@ -53,4 +46,7 @@ class AdminLoginController extends Controller
         }
 
     }
+
+
+
 }

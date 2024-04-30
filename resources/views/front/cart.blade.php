@@ -17,7 +17,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
             </div>
         </div>
     </section>
-
+    @if(Cart::count() > 0)
     <section class=" section-9 pt-4">
         <div class="container">
             <div class="row">
@@ -34,11 +34,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(Cart::count() > 0)
+                               
                                     @foreach($cartContent as $item)
-
-                                
-
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center justify-content-center">
@@ -74,12 +71,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
                                     </td>
                                 </tr>
                                 @endforeach
-                                @else
-                                <tr>
-                                <p>there is no item in cart</p>
-                                </tr>
-
-                                @endif
+                              
+                               
                                                               
                             </tbody>
                         </table>
@@ -104,7 +97,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
                                 <div>${{ Cart::subtotal()}}</div>
                             </div>
                             <div class="pt-5">
-                                <a href="login.php" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
+                                <a href="{{ route('front.checkout') }}" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
                             </div>
                         </div>
                     </div>     
@@ -116,6 +109,10 @@ use Gloudemans\Shoppingcart\Facades\Cart;
             </div>
         </div>
     </section>
+
+@else
+<p>Your cart is empty</p>
+@endif
 
 
 @endsection
