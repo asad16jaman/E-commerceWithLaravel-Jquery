@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="{{ asset('admin-assets/plugins/fontawesome-free/css/all.min.css') }}">
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/adminlte.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('admin-assets/css/datetimepicker.css') }}">
 		<!-- for dropZone -->
 		<link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.css') }}">
@@ -97,6 +98,7 @@
 		<script src="{{ asset('admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 		<!-- AdminLTE App -->
 		<script src="{{ asset('admin-assets/js/adminlte.min.js') }}"></script>
+		<script src="{{ asset('admin-assets/js/datetimepicker.js') }}"></script>
 		<!-- it is for DropZone -->
 		<script src="{{ asset('admin-assets/plugins/summernote/summernote.min.js') }}"></script>
 		<script src="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.js') }}"></script>

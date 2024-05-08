@@ -88,10 +88,6 @@ use Gloudemans\Shoppingcart\Facades\Cart;
                                 <div>Subtotal</div>
                                 <div>${{ Cart::subtotal() }}</div>
                             </div>
-                            <div class="d-flex justify-content-between pb-2">
-                                <div>Shipping</div>
-                                <div>$20</div>
-                            </div>
                             <div class="d-flex justify-content-between summery-end">
                                 <div>Total</div>
                                 <div>${{ Cart::subtotal()}}</div>
@@ -101,10 +97,10 @@ use Gloudemans\Shoppingcart\Facades\Cart;
                             </div>
                         </div>
                     </div>     
-                    <div class="input-group apply-coupan mt-4">
+                    <!-- <div class="input-group apply-coupan mt-4">
                         <input type="text" placeholder="Coupon Code" class="form-control">
                         <button class="btn btn-dark" type="button" id="button-addon2">Apply Coupon</button>
-                    </div> 
+                    </div>  -->
                 </div>
             </div>
         </div>

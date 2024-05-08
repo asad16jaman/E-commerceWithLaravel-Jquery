@@ -3,10 +3,12 @@
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CatagoryController;
+use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCatagoryController;
+use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\SubcatagoryContorller;
 use App\Http\Controllers\admin\TempImagesController;
 use App\Http\Controllers\AuthController;
@@ -42,6 +44,10 @@ Route::delete("/delete-item",[CardController::class,"deleteItem"])->name("front.
 Route::get("/checkout",[CardController::class,"checkout"])->name("front.checkout");
 Route::post("/process-checkout",[CardController::class,"processCheckout"])->name("front.processCheckout");
 Route::get("/thanks/{orderId}",[CardController::class,"thankyou"])->name("front.thankyou");
+Route::post("/get-order-summery",[CardController::class,"getOrderSummery"])->name("front.getOrderSummery");
+Route::post("/apply-discount",[CardController::class,"applyDiscount"])->name("front.applyDiscount");
+Route::post("/remove-discount",[CardController::class,"removeCoupon"])->name("front.removeCoupon");
+
 
 
 
@@ -72,12 +78,11 @@ Route::group(["prefix" => "account"],function(){
 Route::group(["prefix"=>"admin"],function(){
 
     Route::group(["middleware"=>"admin.guest"],function(){
-
         Route::get("login",[AdminLoginController::class,"index"])->name("admin.login");
         Route::post("/authenicate",[AdminLoginController::class,"authenicate"])->name("admin.authenicate");
-
-
     });
+
+    
     Route::group(["middleware"=>"admin.auth"],function(){
 
         Route::get("dashbord",[HomeController::class,"index"])->name("admin.dashboard");
@@ -112,7 +117,6 @@ Route::group(["prefix"=>"admin"],function(){
         Route::get("/products",[ProductController::class,"index"])->name("product.index");
         Route::get("/product/create",[ProductController::class,"create"])->name("product.create");
         Route::post("/product/store",[ProductController::class,"store"])->name("product.store");
-        Route::post("/product/store",[ProductController::class,"store"])->name("product.store");
         Route::get("/product/{product}/edit",[ProductController::class,"edit"])->name("product.edit")->whereNumber("product");
         Route::put("/product/{product_id}/update",[ProductController::class,"update"])->name("product.update")->whereNumber("product_id");
         Route::get("/related-product",[ProductController::class,"relatedProduct"])->name("product.relatedProduct");
@@ -128,6 +132,22 @@ Route::group(["prefix"=>"admin"],function(){
         Route::get("getSubcatagory",[ProductSubCatagoryController::class,"index"])->name("getSubcatagory.index");
         //creating image as temperory folder
         Route::post("temp-images",[TempImagesController::class,"create"])->name("temp-images.create");
+
+        //shigging route
+        Route::get('/shipping/create',[ShippingController::class,"create"])->name('shipping');
+        Route::post('/shipping',[ShippingController::class,"store"])->name('shipping.store');
+        Route::get('/shipping/{id}',[ShippingController::class,"edit"])->name('shipping.edit');
+        Route::put('/shipping/{id}',[ShippingController::class,"update"])->name('shipping.update');
+        Route::delete('/shipping/delete/{id}',[ShippingController::class,"destroy"])->name('shipping.delete');
+
+
+        //coupon code route
+        Route::get("/coupon",[DiscountCodeController::class,"index"])->name("coupon.index");
+        Route::get("/coupon/create",[DiscountCodeController::class,"create"])->name("coupon.create");
+        Route::post("/copun/store",[DiscountCodeController::class,"store"])->name("coupon.store");
+        Route::get("/coupon/{id}/edit",[DiscountCodeController::class,"edit"])->name("coupon.edit")->whereNumber("id");
+        Route::put("/coupon/{id}/update",[DiscountCodeController::class,"update"])->name("coupon.update")->whereNumber("id");
+        Route::delete("/coupon/{id}",[DiscountCodeController::class,"destroy"])->name("coupon.delete");
        
 
         

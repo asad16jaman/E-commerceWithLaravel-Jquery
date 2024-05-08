@@ -128,19 +128,35 @@
                                     <div class="h6"><strong>Subtotal</strong></div>
                                     <div class="h6"><strong>${{ Cart::subtotal() }}</strong></div>
                                 </div>
+                                <div class="d-flex justify-content-between summery-end">
+                                    <div class="h6"><strong>Discount</strong></div>
+                                    <div class="h6"><strong id="discount_value">${{ $discount }}</strong></div>
+                                </div>
                                 <div class="d-flex justify-content-between mt-2">
                                     <div class="h6"><strong>Shipping</strong></div>
-                                    <div class="h6"><strong>$0</strong></div>
+                                    <div class="h6"><strong id="shippingCharge">${{ number_format($totalShippingCharge,2) }}</strong></div>
                                 </div>
                                 <div class="d-flex justify-content-between mt-2 summery-end">
                                     <div class="h5"><strong>Total</strong></div>
-                                    <div class="h5"><strong>$${{ Cart::subtotal() }}</strong></div>
+                                    <div class="h5"><strong id="grandtotal">${{ number_format($grandTotal,2) }}</strong></div>
                                 </div>                            
                             </div>
                         </div>   
+
+                        <div class="input-group apply-coupan mt-4">
+                            <input type="text" placeholder="Coupon Code" class="form-control" name="discount_code" id="discount_code">
+                            <button class="btn btn-dark" type="button" id="apply_discount">Apply Coupon</button>
+                        </div> 
+                        
+                        <div class=" mt-4" id="discountDiv">
+                        @if(Session::has('code'))
+                            <strong>{{ Session::get("code")->code}}</strong>
+                            <a class="btn btn-sm btn-danger" id="remove_discount"><i class="fa fa-times"></i></a>
+                        @endif
+                        </div> 
                         
                         <div class="card payment-form ">   
-                        <h3 class="card-title h5 mb-3">Payment Method</h3>
+                            <h3 class="card-title h5 mb-3">Payment Method</h3>
                             <div class="">
                                 <input checked type="radio" name="payment_method" id="payment_one" value="cod">
                                 <label for="payment_one" class="form-check-label">COD</label>
@@ -227,6 +243,64 @@
 
         })
     })
+
+    $("#country").change(function(e){
+        $.ajax({
+            url:"{{ route('front.getOrderSummery')}}",
+            type:"post",
+            data:{country_id:$(this).val()},
+            success:function(response){
+                if(response.status){
+                    $("#shippingCharge").html('$'+response.shippingCharge)
+                    $("#grandtotal").html('$'+response.grandTotal)
+                }
+            }
+        })
+    })
+
+    $("#apply_discount").click(function(){
+
+        $.ajax({
+            url:"{{ route('front.applyDiscount')}}",
+            type:"post",
+            data:{code:$('#discount_code').val(),country_id:$("#country").val()},
+            success:function(response){
+                if(response.status){
+                    $("#shippingCharge").html('$'+response.shippingCharge)
+                    $("#grandtotal").html('$'+response.grandTotal)
+                    $("#discount_value").html('$'+response.discount)
+                    $("#discountDiv").html(response.showDiscount)
+                    $("#discount_code").val("")
+                }else{
+
+                    $("#discountDiv").html(response.messages)
+
+                }
+            }
+        })
+
+    })
+
+    $("#discountDiv").on('click',"#remove_discount",function(){
+
+        $.ajax({
+            url:"{{ route('front.removeCoupon')}}",
+            type:"post",
+            data:{country_id:$("#country").val()},
+            success:function(response){
+                if(response.status){
+                    $("#shippingCharge").html('$'+response.shippingCharge)
+                    $("#grandtotal").html('$'+response.grandTotal)
+                    $("#discount_value").html('$'+response.discount)
+                    $("#discountDiv").html("")
+                }
+            }
+        })
+
+    })
+
+
+
 
 
 </script>
