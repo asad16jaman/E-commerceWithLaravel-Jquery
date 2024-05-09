@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,10 +68,15 @@ class AuthController extends Controller
 
             if(Auth::attempt(['email' => $request->email,"password"=> $request->password])){
 
-                if(session()->has('url.intended')){
-                    return redirect(session()->get('url.intended'));
-                }
+                $request->session()->regenerate();
+
+               
+                // if(session()->has('url.intended')){
+                //     return redirect(session()->get('url.intended'));
+                // }
                 return redirect()->route('account.profile');
+
+
             }else{
                 return redirect()->back()->with("logerror","given creadential is incurrect");
             }
@@ -91,6 +97,27 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('account.login');
     }
+
+    public function orders(){
+        $user = Auth::user()->id;
+        $data = Order::where('user_id',$user)->orderBy('created_at','desc')->get();
+        return view('front.account.order',['orders'=>$data]);
+    }
+
+
+    public function orderDetail($id){
+
+
+
+        $myorder = Order::with('orderItems')->find($id);
+        // return response()->json($myorder);
+        return view('front.account.orderDetail',['order'=>$myorder]);
+    }
+
+
+
+
+
 
 
 }

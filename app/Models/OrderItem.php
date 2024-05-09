@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     use HasFactory;
+
+    public function productImages(){
+        return $this->hasMany(ProductImage::class);
+    }
 }

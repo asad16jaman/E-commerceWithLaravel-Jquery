@@ -269,6 +269,8 @@ class CardController extends Controller
                 $order->coupon_code = $couponCode;
                 $order->coupon_code_id = $couponId;
                 $order->discount = $discount;
+                $order->payment_status = 'not paid';
+                $order->status = 'panding';
 
                 $order->first_name = $request->first_name;
                 $order->last_name = $request->last_name;
