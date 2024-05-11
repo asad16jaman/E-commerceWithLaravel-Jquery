@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CatagoryController;
 use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCatagoryController;
@@ -164,6 +165,14 @@ Route::group(["prefix"=>"admin"],function(){
         Route::get("/coupon/{id}/edit",[DiscountCodeController::class,"edit"])->name("coupon.edit")->whereNumber("id");
         Route::put("/coupon/{id}/update",[DiscountCodeController::class,"update"])->name("coupon.update")->whereNumber("id");
         Route::delete("/coupon/{id}",[DiscountCodeController::class,"destroy"])->name("coupon.delete");
+
+        //orders route
+        Route::get('/orders',[OrderController::class,"index"])->name('orders.index');
+        Route::get('/orders/{id}',[OrderController::class,"detail"])->name('orders.detail');
+        Route::post('/order/update-status/{id}',[OrderController::class,"changeOrderStatus"])->name('orders.changeOrderStatus');
+        Route::post('/order/send-email/{orderId}',[OrderController::class,"sendEmailCustom"])->name('orders.sendEmailCustom');
+        
+
        
 
         
@@ -179,4 +188,11 @@ Route::group(["prefix"=>"admin"],function(){
     
 
 });
+
+
+
+
+// Route::get('/test',function(){
+   
+// });
 
