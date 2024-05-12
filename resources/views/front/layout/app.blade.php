@@ -133,7 +133,7 @@
 		</div>
 	</div>
 </footer>
-//wishlist Model--------------------------start
+<!-- wishlist Model--------------------------start -->
 <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-labelledby="wishlistModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -149,7 +149,7 @@
     </div>
   </div>
 </div>
-//wishlist Model--------------------------end
+<!-- wishlist Model--------------------------end -->
 
 
 <script src="{{ asset('front-assets/js/jquery-3.6.0.min.js') }}"></script>

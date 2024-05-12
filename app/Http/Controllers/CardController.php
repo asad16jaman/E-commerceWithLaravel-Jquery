@@ -188,7 +188,7 @@ class CardController extends Controller
         ]);
         if($validator->fails()){
             return response()->json([
-                "messages" => "Please pix the error",
+                "messages" => "Please fix the error",
                 "status" => false,
                 "errors" => $validator->errors()
             ]);
@@ -289,6 +289,18 @@ class CardController extends Controller
                 //step - 4 store order  items in order items table
 
                 foreach (Cart::content() as  $item) {
+                    $prod = Product::find($item->id);
+                    if($prod->track_qty == "Yes"){
+                        if($item->qty > $prod->qty){
+                            continue;
+                        }else{
+                            $pqty = $item->qty;
+                            $availqty = $prod->qty;
+                            $prod->qty = $availqty - $pqty;
+                            $prod->save();
+                        }
+                    }
+
                     $orderItem = new OrderItem;
                     $orderItem->product_id = $item->id;
                     $orderItem->order_id = $order->id;
@@ -297,6 +309,7 @@ class CardController extends Controller
                     $orderItem->price = $item->price;
                     $orderItem->total = $item->price * $item->qty;
                     $orderItem->save();
+
                 }
 
                 //send order email

@@ -14,11 +14,11 @@ class ShopController extends Controller
 
         $catagories = Catagory::with(["subCats"=>function($qr){
             return $qr->select("id","catagory_id","name","slug")->where("status",1);
-        }])->select("id","name","slug")->where("status",1)->orderBy("name","asc")->get();
+        }])->where("status",1)->orderBy("name","asc")->get();
 
         $product = Product::with(["productImages"=>function($qr){
             return $qr->select("id","product_id","image");
-        }])->select("id","title","price","compare_price","slug");
+        }]);
 
         if($catagory){
             $catagoryObject = Catagory::where("slug",$catagory)->first();

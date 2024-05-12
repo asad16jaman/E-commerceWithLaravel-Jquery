@@ -79,11 +79,6 @@ Route::group(["prefix" => "account"],function(){
 
 
 
-
-
-
-
-
         Route::get("/logout",[AuthController::class,"logout"])->name('account.logout');
     });
 

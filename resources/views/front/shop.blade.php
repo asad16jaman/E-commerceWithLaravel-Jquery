@@ -139,9 +139,14 @@
                                             @endif
                                             <a class="whishlist" onclick="addToWishlist({{ $product->id }} )" href="javascript:void(0)"><i class="far fa-heart"></i></a>                           
                                             <div class="product-action">
+                                            @if($product->track_qty == "Yes" && $product->qty <= 0)
+                                                <button style="background:yellow;padding:15px 20px; border:none;border-radius:10px">Out of stock</button>
+
+                                                @else
                                                 <a class="btn btn-dark" href="javascript:void(0)" onclick="addToCart({{ $product->id}})">
                                                     <i class="fa fa-shopping-cart"></i> Add To Cart
-                                                </a>                            
+                                                </a> 
+                                            @endif                           
                                             </div>
                                         </div>                        
                                         <div class="card-body text-center mt-3">

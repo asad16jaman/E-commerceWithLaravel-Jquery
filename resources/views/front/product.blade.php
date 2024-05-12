@@ -57,7 +57,14 @@
                         <p>
                         {!! $product->short_description !!}
                         </p>
-                        <a href="javascript:void(0)" onclick="addToCart({{ $product->id}})" class="btn btn-dark"><i class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART</a>
+                        @if($product->track_qty == "Yes" && $product->qty <= 0)
+                                        <button style="background:yellow;padding:15px 20px; border:none;border-radius:10px">Out of stock</button>
+
+                                        @else
+                                        <a class="btn btn-dark" href="javascript:void(0)" onclick="addToCart({{ $product->id}})">
+                                            <i class="fa fa-shopping-cart"></i> Add To Cart
+                                        </a> 
+                                        @endif
                     </div>
                 </div>
 
@@ -118,13 +125,18 @@
                                                     
 
                             <div class="product-action">
-                                <a class="btn btn-dark" href="javascript:void(0)" onclick="addToCart({{ $product->id}})">
-                                    <i class="fa fa-shopping-cart"></i> Add To Cart
-                                </a>                            
+                                    @if($rproduct->track_qty == "Yes" && $rproduct->qty <= 0)
+                                        <button style="background:yellow;padding:15px 20px; border:none;border-radius:10px">Out of stock</button>
+
+                                        @else
+                                        <a class="btn btn-dark" href="javascript:void(0)" onclick="addToCart({{ $product->id}})">
+                                            <i class="fa fa-shopping-cart"></i> Add To Cart
+                                        </a> 
+                                        @endif                            
                             </div>
                         </div>                        
                         <div class="card-body text-center mt-3">
-                            <a class="h6 link" href="{{ route('front.shop',$rproduct->slug) }}">{{$rproduct->title}}</a>
+                            <a class="h6 link" href="{{ route('front.product',$rproduct->slug) }}">{{$rproduct->title}}</a>
                             <div class="price mt-2">
                                 <span class="h5"><strong>${{ $rproduct->price}}</strong></span>
                                 <span class="h6 text-underline"><del>${{$rproduct->compare_price}}</del></span>

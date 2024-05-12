@@ -17,11 +17,11 @@ class ForntController extends Controller
         }])->where([
             "is_featured" => "Yes",
             "status" => 1
-        ])->select("id","title","price","compare_price","slug")->inRandomOrder()->take(8)->get();
+        ])->inRandomOrder()->take(8)->get();
 
         $leatest_p = Product::with(["productImages"=>function($qr){
             return $qr->select("id","product_id","image");
-        }])->select("id","title","price","compare_price","slug")->orderBy("id","desc")->take(8)->get();
+        }])->orderBy("id","desc")->take(8)->get();
         
 
         return view("front.home",["f_products"=>$f_products,"l_products"=>$leatest_p]);
