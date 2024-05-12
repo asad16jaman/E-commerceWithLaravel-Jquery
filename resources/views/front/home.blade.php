@@ -153,7 +153,7 @@
                                 <a href="{{ route('front.product',$product->slug) }}" class="product-img"><img class="card-img-top" src="{{asset('admin-assets/img/default-150x150.png') }}" alt="there is some problame"></a>
                                 @endif
                                     
-                                    <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
+                                    <a class="whishlist" onclick="addToWishlist({{ $product->id }} )" href="javascript:void(0)"><i class="far fa-heart"></i></a>                            
 
                                     <div class="product-action">
                                         <a class="btn btn-dark" href="javascript:void(0)" onclick="addToCart({{ $product->id}})">
@@ -195,7 +195,7 @@
                                     <a href="{{ route('front.product',$product->slug) }}" class="product-img"><img class="card-img-top" src="{{asset('front-assets/images/product-1.jpg') }}" alt="there is some problame"></a>
                                 @endif
                                    
-                                    <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
+                                    <a class="whishlist" onclick="addToWishlist({{ $product->id }} )" href="javascript:void(0)"><i class="far fa-heart"></i></a>                            
 
                                     <div class="product-action">
                                         <a class="btn btn-dark" href="javascript:void(0)" onclick="addToCart({{ $product->id}})">

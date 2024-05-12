@@ -133,6 +133,23 @@
 		</div>
 	</div>
 </footer>
+//wishlist Model--------------------------start
+<div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-labelledby="wishlistModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="wishlistModal">Modal title</h5>
+      </div>
+      <div class="modal-body">
+		successfully added....
+      </div>
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+//wishlist Model--------------------------end
 
 
 <script src="{{ asset('front-assets/js/jquery-3.6.0.min.js') }}"></script>
@@ -172,6 +189,30 @@ function addToCart(id){
 
         })
     }
+
+
+	function addToWishlist(id){
+		$.ajax({
+            url:"{{ route('front.addToWishlist') }}",
+            type:"post",
+            data:{id:id},
+            dataType:"json",
+            success:function(res){
+
+                if(res.status){
+                    $("#wishlistModal").modal("show")
+                }else{
+                    window.location.href = "{{ route('account.login') }}"
+                }
+
+            }
+
+        })
+	}
+
+	$("#modalClose").click(function(){
+		$("#wishlistModal").modal("hide")
+	})
 
 
 </script>

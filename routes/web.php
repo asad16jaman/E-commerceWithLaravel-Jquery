@@ -48,6 +48,7 @@ Route::get("/thanks/{orderId}",[CardController::class,"thankyou"])->name("front.
 Route::post("/get-order-summery",[CardController::class,"getOrderSummery"])->name("front.getOrderSummery");
 Route::post("/apply-discount",[CardController::class,"applyDiscount"])->name("front.applyDiscount");
 Route::post("/remove-discount",[CardController::class,"removeCoupon"])->name("front.removeCoupon");
+Route::post("/add-to-wishlist",[ForntController::class,"addToWishlist"])->name("front.addToWishlist");
 
 
 
@@ -72,7 +73,8 @@ Route::group(["prefix" => "account"],function(){
         Route::get("/profile",[AuthController::class,"profile"])->name('account.profile');
         Route::get("/my-orders",[AuthController::class,"orders"])->name('account.orders');
         Route::get("/order-detail/{id}",[AuthController::class,"orderDetail"])->name('account.orderDetail')->whereNumber('id');
-
+        Route::get("/my-wishlist",[AuthController::class,"wishlist"])->name('account.wishlist');
+        Route::delete("/my-wishlist-delete",[AuthController::class,"deleteProductFromList"])->name('account.deleteProductFromList');
 
 
 

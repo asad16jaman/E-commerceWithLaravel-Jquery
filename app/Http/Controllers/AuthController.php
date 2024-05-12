@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,8 +18,6 @@ class AuthController extends Controller
     }
 
     public function register(){
-
-
         return view("front.account.register");
     }
 
@@ -71,9 +70,9 @@ class AuthController extends Controller
                 $request->session()->regenerate();
 
                
-                // if(session()->has('url.intended')){
-                //     return redirect(session()->get('url.intended'));
-                // }
+                if(session()->has('url.intended')){
+                    return redirect(session()->get('url.intended'));
+                }
                 return redirect()->route('account.profile');
 
 
@@ -106,12 +105,27 @@ class AuthController extends Controller
 
 
     public function orderDetail($id){
-
-
-
         $myorder = Order::with('orderItems')->find($id);
-        // return response()->json($myorder);
         return view('front.account.orderDetail',['order'=>$myorder]);
+    }
+
+    public function wishlist(){
+        $wishlist = Wishlist::with('product')->where('user_id',Auth::user()->id)->get();
+        return view('front.account.wishlist',['data'=>$wishlist]);
+    }
+
+    public function deleteProductFromList(Request $request){
+
+       Wishlist::find($request->id)->delete();
+
+       
+            return response()->json([
+                'status' => true,
+
+            ]);
+
+        
+        
     }
 
 
