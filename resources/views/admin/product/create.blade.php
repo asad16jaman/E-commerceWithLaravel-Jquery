@@ -233,7 +233,6 @@ $("#ProductForm").on("submit",function(e){
         data:ele.serializeArray(),
         dataType:"json",
         success:function(res){
-            console.log(res.status)
             $(".is-invalid").removeClass(".is-invalid");
             if(!res){
                 $(".error").removeClass("invalid-feedback").html("")

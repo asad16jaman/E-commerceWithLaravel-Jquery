@@ -16,6 +16,11 @@
     <section class=" section-11 ">
         <div class="container  mt-5">
             <div class="row">
+                <div class="col-md-12">
+                    @include("front.messages")
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-3">
 
                     @include("front.account.common.sidebar")
@@ -27,27 +32,26 @@
                         </div>
                         <div class="card-body p-4">
                             <div class="row">
-                                <div class="mb-3">               
-                                    <label for="name">Name</label>
-                                    <input type="text" name="name" id="name" placeholder="Enter Your Name" class="form-control">
-                                </div>
-                                <div class="mb-3">            
-                                    <label for="email">Email</label>
-                                    <input type="text" name="email" id="email" placeholder="Enter Your Email" class="form-control">
-                                </div>
-                                <div class="mb-3">                                    
-                                    <label for="phone">Phone</label>
-                                    <input type="text" name="phone" id="phone" placeholder="Enter Your Phone" class="form-control">
-                                </div>
-
-                                <div class="mb-3">                                    
-                                    <label for="phone">Address</label>
-                                    <textarea name="address" id="address" class="form-control" cols="30" rows="5" placeholder="Enter Your Address"></textarea>
-                                </div>
-
-                                <div class="d-flex">
-                                    <button class="btn btn-dark">Update</button>
-                                </div>
+                                <form action="" method="post" id="userProfileForm">
+                                        <div class="mb-3">               
+                                            <label for="name">Name</label>
+                                            <input type="text" value="{{ $user->name }}" name="name" id="name" placeholder="Enter Your Name" class="form-control">
+                                            <p class="error"></p>
+                                        </div>
+                                        <div class="mb-3">            
+                                            <label for="email">Email</label>
+                                            <input type="text" value="{{ $user->email }}" name="email" id="email" placeholder="Enter Your Email" class="form-control">
+                                            <p class="error"></p>
+                                        </div>
+                                        <div class="mb-3">                                    
+                                            <label for="phone">Phone</label>
+                                            <input type="text" value="{{ $user->phone }}" name="phone" id="phone" placeholder="Enter Your Phone" class="form-control">
+                                            <p class="error"></p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <button class="btn btn-dark">Update</button>
+                                        </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -57,3 +61,41 @@
     </section>
 
 @endsection
+
+
+@section('customJs')
+<script>
+    $("#userProfileForm").submit(function(e){
+        e.preventDefault();
+        
+        $.ajax({
+            url:"{{ route('account.updateProfile') }}",
+            type:"post",
+            data:$(this).serializeArray(),
+            dataType:'json',
+            success:function(res){
+               
+                $(".error").removeClass("invalid-feedback").html("").siblings("input").removeClass('is-invalid');
+                if(res.status == false){
+                    $.each(res.errors,function(key,value){
+                        $(`#${key}`).addClass('is-invalid').siblings('p').addClass("invalid-feedback").html(value)
+                    })
+                    
+                }else{
+                    window.location.href = "{{ route('account.profile') }}"
+                }
+                
+            }
+        })
+
+
+
+
+
+
+
+    })
+</script>
+
+@endsection
+

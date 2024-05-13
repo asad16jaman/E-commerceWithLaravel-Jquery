@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\ProductSubCatagoryController;
 use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\SubcatagoryContorller;
 use App\Http\Controllers\admin\TempImagesController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\ForntController;
@@ -66,11 +67,8 @@ Route::group(["prefix" => "account"],function(){
 
 
     Route::group(["middleware" => "auth"],function(){
-
-
-
-
         Route::get("/profile",[AuthController::class,"profile"])->name('account.profile');
+        Route::post("/update-profile",[AuthController::class,"updateProfile"])->name('account.updateProfile');
         Route::get("/my-orders",[AuthController::class,"orders"])->name('account.orders');
         Route::get("/order-detail/{id}",[AuthController::class,"orderDetail"])->name('account.orderDetail')->whereNumber('id');
         Route::get("/my-wishlist",[AuthController::class,"wishlist"])->name('account.wishlist');
@@ -169,7 +167,13 @@ Route::group(["prefix"=>"admin"],function(){
         Route::post('/order/update-status/{id}',[OrderController::class,"changeOrderStatus"])->name('orders.changeOrderStatus');
         Route::post('/order/send-email/{orderId}',[OrderController::class,"sendEmailCustom"])->name('orders.sendEmailCustom');
         
-
+        //users route
+        Route::get('/users',[UserController::class,"index"])->name('users.index');
+        Route::get('/user/create',[UserController::class,"create"])->name('user.create');
+        Route::post('/user/store',[UserController::class,"store"])->name('user.store');
+        Route::get('/user/{id}/edit',[UserController::class,"edit"])->name('user.edit');
+        Route::put('/user/{id}/update',[UserController::class,"update"])->name('user.update');
+        Route::delete('/user/{id}/delete',[UserController::class,"destroy"])->name('user.delete');
        
 
         

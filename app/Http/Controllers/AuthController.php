@@ -89,7 +89,39 @@ class AuthController extends Controller
 
 
     public function profile(){
-        echo view("front.account.profile");
+        $user = User::find(Auth::user()->id);
+        echo view("front.account.profile",['user'=>$user]);
+    }
+
+    public function updateProfile(Request $request){
+        
+
+        $valid = Validator::make($request->all(),[
+            'name' => "required",
+            'email' => 'required|email|unique:users,email,'.Auth::user()->id.',id',
+            'phone' => 'required'
+        ]);
+
+        if($valid->passes()){
+
+            $user = User::find(Auth::user()->id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->save();
+            session()->flash('success','successfully updated your account information');
+            return response()->json([
+                'status' => true,
+                'messages' => 'successfully updated...'
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'errors' => $valid->errors()
+            ]);
+        }
+
+
     }
 
     function logout(){
