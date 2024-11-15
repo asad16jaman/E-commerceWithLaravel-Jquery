@@ -23,8 +23,11 @@
                         <div class="carousel-inner bg-light">
                             @if($product->productImages->isNotEmpty()){
                                 @foreach($product->productImages as $key => $value)
+                                
+  <!-- height: 500px; -->
+  
                                     <div class="carousel-item {{ ($key==0) ? "active" : ""}}" >
-                                        <img class="w-100 h-100" src="{{ asset("/uploads/product/large")."/".$value->image}}" alt="Image">
+                                        <img style="width: 433px;height:500px;object-fit: cover;" src="{{ asset("/uploads/product/large")."/".$value->image}}" alt="Image">
                                     </div>
                                 @endforeach
                             @endif

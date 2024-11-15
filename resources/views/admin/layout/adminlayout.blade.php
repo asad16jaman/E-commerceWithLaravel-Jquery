@@ -51,11 +51,9 @@
 							<h4 class="h4 mb-0"><strong>{{ Auth::user()->name}}</strong></h4>
 							<div class="mb-3">{{ Auth::user()->email}}</div>
 							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item">
-								<i class="fas fa-user-cog mr-2"></i> Settings								
-							</a>
+							
 							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item">
+							<a href="{{ route('admin.change_password') }}" class="dropdown-item">
 								<i class="fas fa-lock mr-2"></i> Change Password
 							</a>
 							<div class="dropdown-divider"></div>
@@ -72,7 +70,7 @@
 				<!-- Brand Logo -->
 				<a href="#" class="brand-link">
 					<img src="{{ asset('admin-assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-					<span class="brand-text font-weight-light">LARAVEL SHOP</span>
+					<span class="brand-text font-weight-light">AMAR BAJAR</span>
 				</a>
 				<!-- Sidebar -->
 				@include("admin.sidebar")
@@ -85,9 +83,9 @@
 				<!-- /.content -->
 			</div>
 			<!-- /.content-wrapper -->
-			<footer class="main-footer">
+			<footer class="main-footer text-center">
 				
-				<strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
+				<strong class="">Contact &copy; asaduzzaman15-4330@diu.edu.bd
 			</footer>
 			
 		</div>

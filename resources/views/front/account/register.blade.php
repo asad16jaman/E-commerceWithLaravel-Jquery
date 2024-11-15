@@ -40,7 +40,7 @@
                         <p class="errorMessages"></p>
                     </div>
                     <div class="form-group small">
-                        <a href="#" class="forgot-link">Forgot Password?</a>
+                        <!-- <a href="#" class="forgot-link">Forgot Password?</a> -->
                     </div> 
                     <button type="submit" class="btn btn-dark btn-block btn-lg" value="Register">Register</button>
                 </form>			

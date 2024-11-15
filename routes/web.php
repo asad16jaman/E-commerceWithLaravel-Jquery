@@ -75,8 +75,9 @@ Route::group(["prefix" => "account"],function(){
         Route::delete("/my-wishlist-delete",[AuthController::class,"deleteProductFromList"])->name('account.deleteProductFromList');
 
 
-
-
+        //for authentication 
+        Route::get("/change-password",[AuthController::class,"edit_password"])->name('account.edit_password');
+        Route::post("/change-password",[AuthController::class,"update_password"])->name('account.edit_password');
         Route::get("/logout",[AuthController::class,"logout"])->name('account.logout');
     });
 
@@ -97,8 +98,13 @@ Route::group(["prefix"=>"admin"],function(){
     
     Route::group(["middleware"=>"admin.auth"],function(){
 
-        Route::get("dashbord",[HomeController::class,"index"])->name("admin.dashboard");
+        //for authentication
         Route::get("/logout",[HomeController::class,"logout"])->name("admin.logout");
+        Route::get("/change_password",[AdminLoginController::class,"change_password"])->name("admin.change_password");
+        Route::post("/change_password",[AdminLoginController::class,"update_password"])->name("admin.change_password");
+        
+        
+        Route::get("dashbord",[HomeController::class,"index"])->name("admin.dashboard");
         
         // all route for catagory
         Route::get("/catagories",[CatagoryController::class,"index"])->name("catagories.index");
@@ -175,13 +181,6 @@ Route::group(["prefix"=>"admin"],function(){
         Route::put('/user/{id}/update',[UserController::class,"update"])->name('user.update');
         Route::delete('/user/{id}/delete',[UserController::class,"destroy"])->name('user.delete');
        
-
-        
-        
-        
-
-
-
     });
     
     
@@ -193,7 +192,4 @@ Route::group(["prefix"=>"admin"],function(){
 
 
 
-// Route::get('/test',function(){
-   
-// });
 

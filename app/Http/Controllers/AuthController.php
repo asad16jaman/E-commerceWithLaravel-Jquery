@@ -22,8 +22,6 @@ class AuthController extends Controller
     }
 
     public function processRegister(Request $request){
-
-
         $validator = Validator::make($request->all(),[
             'name' => "required|min:3",
             "email" => "required|email|unique:users",
@@ -63,6 +61,8 @@ class AuthController extends Controller
             "password" => "required"
         ]);
 
+
+     
         if($validator->passes()){
 
             if(Auth::attempt(['email' => $request->email,"password"=> $request->password])){
@@ -70,9 +70,10 @@ class AuthController extends Controller
                 $request->session()->regenerate();
 
                
-                if(session()->has('url.intended')){
-                    return redirect(session()->get('url.intended'));
-                }
+                // if(session()->has('url.intended')){
+                //     return redirect(session()->get('url.intended'));
+                // }
+                
                 return redirect()->route('account.profile');
 
 
@@ -158,6 +159,40 @@ class AuthController extends Controller
 
         
         
+    }
+
+    function edit_password() {
+        $user = User::find(Auth::user()->id);
+        echo view("front.account.change_password",['user'=>$user]);
+
+    }
+
+    function update_password(Request $request){
+        $validate =  Validator::make($request->all(),[
+            "c_password" => "required|current_password",
+            "password" => "required|min:7|confirmed"
+        ]);
+
+        if($validate->fails()){
+            return response()->json([
+                "status" => false,
+                "errors" => $validate->errors()
+            ]);
+        }
+
+        $user= Auth::user();
+
+        $success = User::where('id',$user->id)->update(['password'=>Hash::make($request->input('password'))]);
+        if($success){
+            $request->session()->flash("success","Successfully Updated Your password");
+            return response()->json([
+                'status'=> true,
+                'message' => "Successfully updated Your password"
+            ]);
+        }
+
+
+
     }
 
 

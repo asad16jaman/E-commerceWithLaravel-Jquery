@@ -162,7 +162,7 @@
                                 <label for="payment_one" class="form-check-label">COD</label>
                             </div>   
                             <div class="">
-                                <input type="radio" name="payment_method" id="payment_two" value="cod">
+                                <input type="radio" name="payment_method" id="payment_two" value="strip">
                                 <label for="payment_two" class="form-check-label">Strip</label>
                             </div>         
                             
@@ -232,8 +232,13 @@
                         $.each(err,function(key,val){
                             $(`#${key}`).addClass('is-invalid').siblings("p").addClass("invalid-feedback").html(val)
                         })
-                }else{
+                }else if(res.strip){
+                    alert(res.messages)
+                }
+                
+                else{
 
+                    
                         let uurl = "{{ route('front.thankyou','ID')}}";
                         uurl = uurl.replace('ID',res.orderId)
                         window.location.href = uurl

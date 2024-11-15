@@ -133,9 +133,9 @@
                                     <div class="card product-card">
                                         <div class="product-image position-relative">
                                             @if($product->productImages->first())
-                                                <a href="{{ route('front.product',$product->slug)}}" class="product-img"><img class="card-img-top" src="{{ asset('/uploads/product/large/')."/".$product->productImages->first()->image }}" alt="there is some problame"></a>
+                                                <a href="{{ route('front.product',$product->slug)}}" class="product-img"><img style="height:250px;object-fit:contain" class="card-img-top" src="{{ asset('/uploads/product/large/')."/".$product->productImages->first()->image }}" alt="there is some problame"></a>
                                             @else
-                                                <a href="{{ route('front.product',$product->slug)}}" class="product-img"><img class="card-img-top" src="{{asset('front-assets/images/product-1.jpg') }}" alt="there is some problame"></a>
+                                                <a href="{{ route('front.product',$product->slug)}}" class="product-img"><img style="height:250px;object-fit:contain" class="card-img-top" src="{{asset('admin-assets/img/default-150x150.png')}}" alt="there is some problame"></a>
                                             @endif
                                             <a class="whishlist" onclick="addToWishlist({{ $product->id }} )" href="javascript:void(0)"><i class="far fa-heart"></i></a>                           
                                             <div class="product-action">
@@ -150,7 +150,7 @@
                                             </div>
                                         </div>                        
                                         <div class="card-body text-center mt-3">
-                                            <a class="h6 link" href="{{ route('front.product',$product->slug)}}">{{ $product->title}}</a>
+                                            <a class="h6 link" href="{{ route('front.product',$product->slug)}}">{{  $getFix($product->title,5) }}</a>
                                             <div class="price mt-2">
                                                 <span class="h5"><strong>${{$product->price}}</strong></span>
                                                 <span class="h6 text-underline"><del>${{$product->compare_price}}</del></span>

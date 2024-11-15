@@ -12,6 +12,12 @@ class HomeController extends Controller
     }
 
 
+
+
+
+    
+
+
     function logout(){
         \Auth::guard("admin")->logout();
         return redirect()->route("admin.login");

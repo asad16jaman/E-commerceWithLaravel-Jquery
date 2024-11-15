@@ -94,7 +94,14 @@
                                             @php
                                                 $img = getProductImage($item->id)
                                             @endphp
+                                            @if($img)
                                             <img class="card-img-top" src="{{ asset('/uploads/product/large/')."/".$img->image }}" alt="there is some problame">
+
+                                            @else
+                                            
+                                            <img class="card-img-top" src="{{ asset('admin-assets/img/default-150x150.png') }}" alt="there is some problame">
+                                            @endif
+
 
                                         </div>
                                         <div class="col">

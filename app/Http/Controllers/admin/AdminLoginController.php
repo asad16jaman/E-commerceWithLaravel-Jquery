@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
+use Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Auth;
+
 class AdminLoginController extends Controller
 {
     //
@@ -45,6 +48,35 @@ class AdminLoginController extends Controller
             
         }
 
+    }
+
+    function change_password(){
+        return view("admin.password_reset");
+    }
+
+    function update_password(Request $request){
+        $validate =  Validator::make($request->all(),[
+            "c_password" => "required|current_password:admin",
+            "password" => "required|min:7|confirmed"
+        ]);
+
+        if($validate->fails()){
+            return response()->json([
+                "status" => false,
+                "errors" => $validate->errors()
+            ]);
+        }
+
+        $user= Auth::user();
+
+        $success = User::where('id',$user->id)->update(['password'=>Hash::make($request->input('password'))]);
+        if($success){
+            $request->session()->flash("success","Successfully Updated Your password");
+            return response()->json([
+                'status'=> true,
+                'message' => "Successfully updated Your password"
+            ]);
+        }
     }
 
 

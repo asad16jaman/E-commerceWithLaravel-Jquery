@@ -51,8 +51,8 @@
 		<div class="row align-items-center py-3 d-none d-lg-flex justify-content-between">
 			<div class="col-lg-4 logo">
 				<a href="{{ route('front.shop')}}" class="text-decoration-none">
-					<span class="h1 text-uppercase text-primary bg-dark px-2">Online</span>
-					<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">SHOP</span>
+					<span class="h1 text-uppercase text-primary bg-dark px-2">Amar</span>
+					<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Bajar</span>
 				</a>
 			</div>
 			<div class="col-lg-6 col-6 text-left  d-flex justify-content-end align-items-center">
@@ -100,8 +100,8 @@
 				<div class="footer-card">
 					<h3>Important Links</h3>
 					<ul>
-						<li><a href="about-us.php" title="About">About</a></li>
-						<li><a href="contact-us.php" title="Contact Us">Contact Us</a></li>						
+						<li><a href="#" title="About">About</a></li>
+						<li><a href="#" title="Contact Us">Contact Us</a></li>						
 						<li><a href="#" title="Privacy">Privacy</a></li>
 						<li><a href="#" title="Privacy">Terms & Conditions</a></li>
 						<li><a href="#" title="Privacy">Refund Policy</a></li>
@@ -113,9 +113,19 @@
 				<div class="footer-card">
 					<h3>My Account</h3>
 					<ul>
-						<li><a href="#" title="Sell">Login</a></li>
-						<li><a href="#" title="Advertise">Register</a></li>
-						<li><a href="#" title="Contact Us">My Orders</a></li>						
+						@auth
+						<li><a href="{{ route('account.profile') }}" title="Contact Us">My Profile</a></li>	
+						<li><a href="{{ route('account.orders') }}" title="Contact Us">My Orders</a></li>	
+						<li><a href="{{ route('account.logout') }}" title="Contact Us">Logout</a></li>	
+						@endauth
+
+						@guest
+						<li><a href="{{ route('account.login') }}" title="Sell">Login</a></li>
+						<li><a href="{{ route('account.register') }}" title="Advertise">Register</a></li>
+						@endguest
+
+						
+											
 					</ul>
 				</div>
 			</div>			
@@ -126,7 +136,7 @@
 			<div class="row">
 				<div class="col-12 mt-3">
 					<div class="copy-right text-center">
-						<p>© Copyright 2022 Amazing Shop. All Rights Reserved</p>
+						<p>Contact © asaduzzaman15-4330@diu.edu.bd</p>
 					</div>
 				</div>
 			</div>

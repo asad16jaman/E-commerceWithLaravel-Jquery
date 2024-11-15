@@ -107,7 +107,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
     </section>
 
 @else
-<p>Your cart is empty</p>
+<p style="text-align:center">Your cart is empty</p>
 @endif
 
 
